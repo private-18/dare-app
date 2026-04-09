@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dares Only</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      color: #8B0000;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    select {
+      background: #111;
+      color: #fff;
+      border: 1px solid #8B0000;
+    }
+
+    button {
+      background: #8B0000;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #a30000;
+    }
+
+    .dare-box {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background: #111;
+      min-height: 80px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .overlay-box {
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .overlay input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .overlay button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <h2>Private Access</h2>
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+</div>
+
+<div class="container">
+  <h1>DARES ONLY</h1>
+  <div class="subtitle">Hey Jasmin & Fardin 💫</div>
+
+  <select id="heatLevel">
+    <option value="tease">TEASE ME</option>
+    <option value="steam">OLD ROMANCE</option>
+    <option value="intense">PHYSICAL</option>
+  </select>
+
+  <button onclick="getDare()">CHALLENGE ME</button>
+
+  <div id="dareBox" class="dare-box"></div>
+</div>
+
+<script>
+  const PASSWORD = "1118";
+
+  function checkPassword() {
+    const input = document.getElementById("password").value;
+    if (input === PASSWORD) {
+      document.getElementById("overlay").style.display = "none";
+    } else {
+      alert("Wrong password");
+    }
+  }
+
+  const dares = {
+    tease: [
+      "Touch anywhere in my body for 20 seconds.",
+      "Come closer and whisper something naughty in my ear.",
+      "kiss anywhere on my body for 10 seconds.",
+      "Sit close enough that your body is touching mine.",
+      "Give a compliment that makes me blush.",
+      "hug me from behind and hold for 15 seconds.",
+      "kiss on my neck for 10 seconds."
+    ],
+    steam: [
+      "Give a slow, warm hug and don’t let go for 30 seconds.",
+      "Stand behind them and gently hold them.",
+      "Guide their hand somewhere soft and meaningful.",
+      "Whisper what you like most about them.",
+      "Slowly run your fingers along their arm and pause.",
+      "Pull them closer and hold eye contact.",
+      "Sit facing each other and mirror movements for 1 minute."
+    ],
+    intense: [
+      "Remove any one piece of clothing on my body.",
+      "Suck me!",
+      "kiss me passionately for 1 minute",
+      "remove all your clothes and stay close to me.",
+      "blindfold me and explore my body with your hands for 2 minutes.",
+      "you get blindfolded and kiss on the parts which i will touch you with.",
+      "Lets make 69 position!",
+      "Remove all our cloths and start kissing each other all over the body for 5 minutes.",
+      "Make me sit on your face",
+      "Fuck Me!!",
+      "Knee down and start eating me",
+      "Let me blind fold you and do whatever I want"
+    ]
+  };
+
+  // No-repeat tracking
+  let usedDares = {
+    tease: [],
+    steam: [],
+    intense: []
+  };
+
+  function getDare() {
+    const level = document.getElementById("heatLevel").value;
+    let available = dares[level].filter(d => !usedDares[level].includes(d));
+
+    // Reset if all used
+    if (available.length === 0) {
+      usedDares[level] = [];
+      available = [...dares[level]];
+    }
+
+    const random = Math.floor(Math.random() * available.length);
+    const selected = available[random];
+
+    usedDares[level].push(selected);
+
+    const dareBox = document.getElementById("dareBox");
+    dareBox.classList.remove("show");
+
+    setTimeout(() => {
+      dareBox.textContent = selected;
+      dareBox.classList.add("show");
+    }, 200);
+  }
+</script>
+
+</body>
+</html>
