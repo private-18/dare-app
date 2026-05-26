@@ -4,8 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dares Only</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #000;
@@ -13,214 +19,295 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
-      width: 90%;
-      max-width: 400px;
+      width: 100%;
+      max-width: 420px;
       text-align: center;
+      background: #111;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(139, 0, 0, 0.35);
     }
 
     h1 {
-      margin-bottom: 5px;
       color: #8B0000;
       letter-spacing: 2px;
+      margin-bottom: 5px;
     }
 
     .subtitle {
       font-size: 14px;
-      margin-bottom: 20px;
       opacity: 0.8;
+      margin-bottom: 15px;
     }
 
-    select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    select {
-      background: #111;
-      color: #fff;
-      border: 1px solid #8B0000;
+    .mode {
+      margin-bottom: 20px;
+      color: #ff4d4d;
+      font-size: 14px;
+      letter-spacing: 1px;
     }
 
     button {
-      background: #8B0000;
-      color: #fff;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      margin-top: 10px;
     }
 
-    button:hover {
-      background: #a30000;
+    .main-btn {
+      background: linear-gradient(135deg, #8B0000, #b30000);
+      color: white;
+    }
+
+    .main-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .main-btn:active {
+      transform: scale(0.98);
+    }
+
+    .reset-btn {
+      background: #222;
+      color: #aaa;
+      border: 1px solid #333;
     }
 
     .dare-box {
-      margin-top: 20px;
-      padding: 20px;
+      margin-top: 25px;
+      padding: 25px;
       border-radius: 15px;
-      background: #111;
-      min-height: 80px;
-      opacity: 0;
+      background: #181818;
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.6;
+      border: 1px solid rgba(139, 0, 0, 0.5);
       transition: opacity 0.5s ease;
-    }
-
-    .show {
-      opacity: 1;
+      box-shadow: inset 0 0 15px rgba(139,0,0,0.15);
     }
 
     .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 100;
     }
 
     .overlay-box {
+      width: 85%;
+      max-width: 320px;
       background: #111;
       padding: 30px;
-      border-radius: 15px;
+      border-radius: 20px;
       text-align: center;
-      width: 80%;
-      max-width: 300px;
+      box-shadow: 0 0 25px rgba(139,0,0,0.4);
     }
 
-    .overlay input {
+    .overlay-box h2 {
+      margin-bottom: 15px;
+      color: #8B0000;
+    }
+
+    .overlay-box input {
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 10px;
       border: none;
+      margin-bottom: 15px;
+      background: #222;
+      color: white;
     }
 
-    .overlay button {
-      margin-top: 10px;
+    .overlay-box button {
+      background: #8B0000;
+      color: white;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: rgba(139,0,0,0.15);
+      border-radius: 50%;
+      filter: blur(90px);
+      animation: pulse 5s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.4;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0.4;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<div class="overlay" id="overlay">
-  <div class="overlay-box">
-    <h2>Private Access</h2>
-    <input type="password" id="password" placeholder="Enter password" />
-    <button onclick="checkPassword()">Enter</button>
+  <!-- Password Overlay -->
+  <div class="overlay" id="overlay">
+    <div class="overlay-box">
+      <h2>Private Access 🔒</h2>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+      />
+
+      <button onclick="checkPassword()">
+        Enter
+      </button>
+    </div>
   </div>
-</div>
 
-<div class="container">
-  <h1>DARES ONLY</h1>
-  <div class="subtitle">Hey Jasmin & Fardin 💫</div>
+  <!-- Main App -->
+  <div class="container">
 
-  <select id="heatLevel">
-    <option value="tease">TEASE ME</option>
-    <option value="steam">OLD ROMANCE</option>
-    <option value="intense">PHYSICAL</option>
-  </select>
+    <h1>DARES ONLY</h1>
 
-  <button onclick="getDare()">CHALLENGE ME</button>
+    <div class="subtitle">
+      Hey Jasmin & Fardin 💫
+    </div>
 
-  <div id="dareBox" class="dare-box"></div>
-</div>
+    <div class="mode">
+      INTENSE MODE 🔥
+    </div>
 
-<script>
-  const PASSWORD = "1118";
+    <button class="main-btn" onclick="getDare()">
+      CHALLENGE ME
+    </button>
 
-  function checkPassword() {
-    const input = document.getElementById("password").value;
-    if (input === PASSWORD) {
-      document.getElementById("overlay").style.display = "none";
-    } else {
-      alert("Wrong password");
-    }
-  }
+    <button class="reset-btn" onclick="resetDares()">
+      RESET SESSION
+    </button>
 
-  const dares = {
-    tease: [
-      "Touch anywhere in my body for 20 seconds.",
-      "Come closer and whisper something naughty in my ear.",
-      "kiss anywhere on my body for 10 seconds.",
-      "Sit close enough that your body is touching mine.",
-      "Give a compliment that makes me blush.",
-      "hug me from behind and hold for 15 seconds.",
-      "kiss on my neck for 10 seconds."
-    ],
-    steam: [
-      "Give a slow, warm hug and don’t let go for 30 seconds.",
-      "Stand behind them and gently hold them.",
-      "Guide their hand somewhere soft and meaningful.",
-      "Whisper what you like most about them.",
-      "Slowly run your fingers along their arm and pause.",
-      "Pull them closer and hold eye contact.",
-      "Sit facing each other and mirror movements for 1 minute."
-    ],
-    intense: [
-      "Kiss my neck, jawline, and collarbone for 2 minutes without touching my lips.",
-      "Kiss me passionately for 1 minute.",
-      "Tease me slowly until I become breathless.",
-      "Remove one piece of my clothing very slowly.",
-      "Blindfold me and guide me around your body using only touch.",
-      "Give me a slow massage while I’m blindfolded.",
-      "Stay close to me with your body against mine.",
-      "Spend 5 minutes kissing me all over softly.",
-      "Blindfold yourself and let me guide you.",
-      "Undress me slowly using only your teeth.",
-      "Pull me closer and whisper what you want.",
-      "Explore my body gently with your hands.",
-      "Sit close and hold eye contact without speaking.",
-      "Take control and guide the moment your way.",
-      "Pin my hands gently and kiss me deeply.",
-      "Slow dance with me with almost no space between us.",
-      "Take a warm shower together.",
-      "Lay together in silence and enjoy the tension.",
-      "Make me blush with your confidence.",
-      "Trace your lips slowly along my skin."
-    ]
-  };
+    <div id="dareBox" class="dare-box">
+      Press “CHALLENGE ME” ❤️
+    </div>
 
-  // No-repeat tracking
-  let usedDares = {
-    tease: [],
-    steam: [],
-    intense: []
-  };
+  </div>
 
-  function getDare() {
-    const level = document.getElementById("heatLevel").value;
-    let available = dares[level].filter(d => !usedDares[level].includes(d));
+  <script>
 
-    // Reset if all used
-    if (available.length === 0) {
-      usedDares[level] = [];
-      available = [...dares[level]];
+    // PASSWORD
+    const PASSWORD = "1118";
+
+    function checkPassword() {
+
+      const input =
+        document.getElementById("password").value;
+
+      if (input === PASSWORD) {
+
+        document.getElementById("overlay")
+          .style.display = "none";
+
+      } else {
+
+        alert("Wrong Password");
+
+      }
     }
 
-    const random = Math.floor(Math.random() * available.length);
-    const selected = available[random];
+    // DARES
+    const dares = [
+        "Kiss my neck, jawline, collarbone for 2 min without touching my lips.",
+        "Kiss me passionately for 10 minute.",
+        "Tease me until I become breathless.",
+        "Remove any one piece of clothing on my body. ",
+        "Blindfold me and guide me around your body using only touch. ",
+        "Give me a massage, blindfolded. ",
+        "Remove all our clothes and stay close to me. ",
+        "Remove all our clothes and start kissing each other all over the body for 5 minutes. ",
+        "You get blindfolded and kiss on the parts which I will touch you with. ",
+        "Undress me using only your teeth. ",
+        "Remove my underwear using only your feet. ",
+        "Suck my nipples. ",
+        "Rub your dick/pussy on my nipples. ",
+        "Handcuff me and turn me on. ",
+        "Sit on my face. ",
+        "Make me sit on your face. ",
+        "Knee down and start eating me. ",
+        "Give me oral sex. ",
+        "Lick my private part. ",
+        "Fuck my private part with your tongue until I cum. ",
+        "Make me cum using your lips. ",
+        "Suck me! Let’s make 69 position! ",
+        "Eat me while standing in front of the mirror and watch me. ",
+        "Put cream on your favorite part of me and have me as your meal. ",
+        "Let me blindfold you and do whatever I want. ",
+        "Fuck me blindfolded. ",
+        "Fuck Me!! Recreate the scenes in a porn video. ",
+        "Let’s take a shower."
+    ];
 
-    usedDares[level].push(selected);
+    // ORDER SYSTEM
+    let currentIndex = 0;
 
-    const dareBox = document.getElementById("dareBox");
-    dareBox.classList.remove("show");
+    function getDare() {
 
-    setTimeout(() => {
-      dareBox.textContent = selected;
-      dareBox.classList.add("show");
-    }, 200);
-  }
-</script>
+      const selected = dares[currentIndex];
+
+      currentIndex++;
+
+      if (currentIndex >= dares.length) {
+        currentIndex = 0;
+      }
+
+      const dareBox =
+        document.getElementById("dareBox");
+
+      dareBox.style.opacity = "0";
+
+      setTimeout(() => {
+
+        dareBox.textContent = selected;
+
+        dareBox.style.opacity = "1";
+
+      }, 250);
+    }
+
+    // RESET
+    function resetDares() {
+
+      currentIndex = 0;
+
+      document.getElementById("dareBox")
+        .textContent =
+        "Session restarted ❤️";
+    }
+
+  </script>
 
 </body>
 </html>
